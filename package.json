@@ -9,7 +9,7 @@
     "start:dev": "nodemon server.js",
     "start": "node server.js",
     "test": "jest --runInBand",
-    "test:watch": "jest --runInBand --watchAll"
+    "test:watch": "jest --env=./tests/custom-test-env.js --runInBand --watchAll"
   },
   "repository": {
     "type": "git",
@@ -45,6 +45,6 @@
     "jest": "^26.0.1",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
-    "pg": "^8.2.1"
+    "pg": "^8.11.0"
   }
 }

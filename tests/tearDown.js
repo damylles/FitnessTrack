@@ -1,11 +1,11 @@
 const client = require('../db/client');
 
-const tearDown = async ({watch, watchAll}) => {
+const tearDown = async ({ watch, watchAll }) => {
   if (watch || watchAll) {
     return;
   }
   await client.end();
-  console.log("Client Ended");
-}
+  console.log('Client Ended');
+};
 
 module.exports = tearDown;
