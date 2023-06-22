@@ -1,4 +1,4 @@
-const client = require("./client");
+const client = require('./client');
 
 async function addActivityToRoutine({
   routineId,
@@ -19,7 +19,7 @@ async function addActivityToRoutine({
     );
     return routines;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 }
 
@@ -35,7 +35,6 @@ async function getRoutineActivityById(id) {
 
     return routine;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -50,7 +49,6 @@ async function getRoutineActivitiesByRoutine({ id }) {
 
     return routine;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -71,13 +69,12 @@ async function updateRoutineActivity({ id, ...fields }) {
 
     const { rows: routine } = await client.query(`
     UPDATE routine_activities 
-    SET ${updateParam.join(",")}
+    SET ${updateParam.join(',')}
     WHERE id=${id}
     RETURNING *;
     `);
     return routine[0];
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -92,7 +89,7 @@ async function destroyRoutineActivity(id) {
     `);
     return routine;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 }
 
@@ -107,7 +104,6 @@ async function canEditRoutineActivity(routineActivityId, userId) {
     if (routines.length > 0) return true;
     else return false;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }

@@ -1,4 +1,4 @@
-const client = require("./client");
+const client = require('./client');
 //const bcrypt = require('bcrypt');
 
 // database functions
@@ -18,10 +18,9 @@ async function createUser({ username, password }) {
       [username, password]
     );
 
-    user.password = undefined;
+    delete user.password;
     return user;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -36,7 +35,7 @@ async function getUser({ username, password }) {
     `);
     return user;
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 }
 
@@ -50,7 +49,7 @@ async function getUserById(userId) {
     `);
     return user;
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 }
 
@@ -64,7 +63,7 @@ async function getUserByUsername(userName) {
     `);
     return user;
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 }
 

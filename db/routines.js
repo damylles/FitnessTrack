@@ -1,4 +1,4 @@
-const client = require("./client");
+const client = require('./client');
 
 async function createRoutine({ creatorId, isPublic, name, goal }) {
   try {
@@ -15,19 +15,19 @@ async function createRoutine({ creatorId, isPublic, name, goal }) {
 
     return routines;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 }
 
 async function getRoutineById(id) {
   try {
-    const { rows } = await client.query(`
+    const { rows: routine } = await client.query(`
       SELECT r.id, r."creatorId", r."isPublic", r.name, r.goal 
       FROM routines as r WHERE r.id=${id};
     `);
-    return rows;
+    return routine[0];
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 }
 
@@ -40,7 +40,7 @@ async function getRoutinesWithoutActivities() {
     `);
     return rows;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 }
 
@@ -63,7 +63,6 @@ async function getAllRoutines() {
       })
     );
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -88,7 +87,6 @@ async function getAllPublicRoutines() {
       })
     );
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -113,7 +111,6 @@ async function getAllRoutinesByUser({ username }) {
       })
     );
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -138,7 +135,6 @@ async function getPublicRoutinesByUser({ username }) {
       })
     );
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -162,8 +158,8 @@ async function getPublicRoutinesByActivity({ id }) {
         return routine;
       })
     );
+    return true;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -189,13 +185,12 @@ async function updateRoutine({ id, ...fields }) {
 
     const { rows: routine } = await client.query(`
     UPDATE routines 
-    SET ${updateParam.join(",")}
+    SET ${updateParam.join(',')}
     WHERE id=${id}
     RETURNING *;
     `);
     return routine[0];
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
@@ -213,7 +208,6 @@ async function destroyRoutine(id) {
     `);
     return true;
   } catch (error) {
-    console.error(error);
     return false;
   }
 }

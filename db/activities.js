@@ -1,4 +1,4 @@
-const client = require("./client");
+const client = require('./client');
 
 // database functions
 async function createActivity({ name, description }) {
@@ -28,7 +28,6 @@ async function getAllActivities() {
     `);
     return rows;
   } catch (error) {
-    console.log("not able to search for activities");
     throw error;
   }
 }
@@ -43,7 +42,6 @@ async function getActivityById(id) {
     `);
     return activities;
   } catch (error) {
-    console.log("not able to search for activities");
     throw error;
   }
 }
@@ -59,7 +57,6 @@ async function getActivityByName(name) {
     `);
     return activities;
   } catch (error) {
-    console.log("not able to search for activities", error);
     throw error;
   }
 }
@@ -83,13 +80,12 @@ async function updateActivity({ id, ...fields }) {
 
     const { rows: routine } = await client.query(`
     UPDATE activities 
-    SET ${updateParam.join(",")}
+    SET ${updateParam.join(',')}
     WHERE id=${id}
     RETURNING *;
     `);
     return routine[0];
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
